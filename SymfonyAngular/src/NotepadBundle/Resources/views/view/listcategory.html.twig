@@ -1,0 +1,58 @@
+{% extends 'NotepadBundle:view:layout.html.twig' %}
+
+{% block title %}Category list{% endblock %}
+
+{% block pageheader %}
+Liste des catégories
+  <p>
+    {% for flashMessage in app.session.flashbag.get('error') %}
+      <div class="alert alert-danger">
+        {{ flashMessage }}
+      </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('yolo') %}
+          <div class="alert alert-success">
+            {{ flashMessage }}
+          </div>
+        {% endfor %}
+  </p>
+{% endblock %}
+
+{% block actions %}
+<a href="{{ path('notepadcategorynew') }}"
+   class="btn btn-lg btn-default">
+  <i class="glyphicon glyphicon-plus"></i>
+  Ajouter une catégorie
+</a>
+<a href="{{ path('notepadnotelist') }}"
+   class="btn btn-lg btn-default">
+   <i class="glyphicon glyphicon-arrow-left"></i>
+  Retour
+</a>
+{% endblock %}
+
+{% block content %}
+
+<table class="table table-striped">
+ <div class=" col-md-offset-2">
+{% for category in categories %}
+  <tr>
+    <td>{{ category.name }}</td>
+    <td class="text-right">
+      <a href="{{ path('notepadeditcategory', {'category': category.id}) }}"
+         class="btn btn-sm btn-default">
+        <i class="glyphicon glyphicon-pencil"></i>
+        Modifier
+      </a>
+      <a href="{{ path('notepaddeletecategory', {'category': category.id}) }}"
+         class="btn btn-sm btn-default">
+        <i class="glyphicon glyphicon-trash"></i>
+        Supprimer
+      </a>
+    </td>
+  </tr>
+{% endfor %}
+</div>
+</table>
+
+{% endblock %}
